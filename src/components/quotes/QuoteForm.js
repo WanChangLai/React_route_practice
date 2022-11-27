@@ -69,4 +69,5 @@ const QuoteForm = (props) => {
 };
 
 //the when attributes inside the prompt means that when the isEntering is true i wanna show this prompt if the user trying to leave the page
+//finishEnteringHandler is used to change setIsEntering to false since we already input something and we dont want the prompt component to trigger
 export default QuoteForm;
