@@ -1,4 +1,4 @@
-import { useParams, Route } from "react-router-dom";
+import { useParams, Route, useRouteMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import Comments from "../components/comments/Comments";
@@ -10,7 +10,10 @@ const DUMMY_QUOTES = [
 ];
 
 const QuoteDetail = () => {
+  const match = useRouteMatch();
   const params = useParams();
+
+  console.log(match);
 
   const quote = DUMMY_QUOTES.find((quote) => quote.id === params.quoteId);
 
@@ -21,18 +24,19 @@ const QuoteDetail = () => {
   return (
     <section>
       <HighlightedQuote author={quote.author} text={quote.text} />
-      <Route path={`/quotes/${params.quoteId}`} exact>
+      <Route path={match.path} exact>
         <div className="centered">
-          <Link className="btn--flat" to={`/quotes/${params.quoteId}/comments`}>
+          <Link className="btn--flat" to={`${match.url}/comments`}>
             Load Comment
           </Link>
         </div>
       </Route>
-      <Route exact path={`/quotes/${params.quoteId}/comments`}>
+      <Route exact path={`${match.path}/comments`}>
         <Comments />
       </Route>
     </section>
   );
 };
 
+//useRouteMatch can help to check for the path and url of the route you are currently visit in the browser
 export default QuoteDetail;
